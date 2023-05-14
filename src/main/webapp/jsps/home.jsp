@@ -9,7 +9,7 @@
 </head>
 </head>
 <body>
-<h1 align="center">Welcome to Komala Technologies.Markapur,Karnataka,India </h1>
+<h1 align="center">Welcome to Komala Technologies.Markapur,AndhraPradesh,India </h1>
 <h1 align="center"> Komala Technologies- Very Good Training Center for DevOps with AWS in Bangalore India and also for Job Assitance Job Support also...Teaching Real Time scnerios</h1>
 <hr>
 <br>
