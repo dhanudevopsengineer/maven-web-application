@@ -32,6 +32,8 @@ properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKe
 def mavenHome = tool name: 'maven3.9.1'
 
 try{
+sendSlackNotifications('STARTED')
+
 //Get the code from Github Repo
 stage('CheckoutCode'){
 git branch: 'development', credentialsId: 'f74ab2aa-c724-493b-8994-11f346cf7dc7', url: 'https://github.com/dhanudevopsengineer/maven-web-application.git'
