@@ -1,10 +1,37 @@
+def sendSlackNotifications(String buildStatus = 'STARTED') {
+  
+  buildStatus =  buildStatus ?: 'SUCCESS'
+
+  // Default values
+  def colorName = 'RED'
+  def colorCode = '#FF0000'
+  def subject = "${buildStatus}: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'"
+  def summary = "${subject} (${env.BUILD_URL})"
+
+  // Override default values based on build status
+  if (buildStatus == 'STARTED') {
+    color = 'YELLOW'
+    colorCode = '#FFFF00'
+  } else if (buildStatus == 'SUCCESS') {
+    color = 'GREEN'
+    colorCode = '#00FF00'
+  } else {
+    color = 'RED'
+    colorCode = '#FF0000'
+  }
+
+  // Send notifications
+  slackSend (color: colorCode, message: summary)
+}
+
+
 node{
 echo "Job Name is: ${env.JOB_NAME}"
 echo "Node Name is: ${env.NODE_NAME}"
 properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '5', daysToKeepStr: '', numToKeepStr: '5')), [$class: 'JobLocalConfiguration', changeReasonComment: ''], pipelineTriggers([pollSCM('* * * * *')])])
 def mavenHome = tool name: 'maven3.9.1'
 
-
+try{
 //Get the code from Github Repo
 stage('CheckoutCode'){
 git branch: 'development', credentialsId: 'f74ab2aa-c724-493b-8994-11f346cf7dc7', url: 'https://github.com/dhanudevopsengineer/maven-web-application.git'
@@ -13,7 +40,6 @@ git branch: 'development', credentialsId: 'f74ab2aa-c724-493b-8994-11f346cf7dc7'
 stage('Build'){
 sh "${mavenHome}/bin/mvn clean package"
 }
-/*
 //Execute the sonarQube Report
 stage('ExecuteSonarQubeReport'){
 sh "${mavenHome}/bin/mvn sonar:sonar"
@@ -28,5 +54,11 @@ sshagent(['2b7b081c-83a5-4f2b-86e5-d60665c2ad5d']) {
 sh "scp -o StrictHostKeyChecking=no target/maven-web-application.war ec2-user@65.2.40.56:/opt/apache-tomcat-9.0.74/webapps"    
 }
 }
-*/
-}
+}//Try Closing
+ catch(e){
+ currentBuild.result = "FAILED"
+ }
+ finally{
+ sendSlackNotifications(currentBuild.result)
+ }
+}//Node Closing
