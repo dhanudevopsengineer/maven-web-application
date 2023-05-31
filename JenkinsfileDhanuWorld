@@ -47,9 +47,9 @@ stage('ExecuteSonarQubeReport'){
 sh "${mavenHome}/bin/mvn sonar:sonar"
 }
 //Upload Artifacts into Artifactory Repo
-stage('UploadArtifactsintoNexus'){
+/*stage('UploadArtifactsintoNexus'){
 sh "${mavenHome}/bin/mvn deploy"
-}
+}*/
 //Deply Application into TomcatServer
 stage('DeployApplicationIntoTomcatServer'){
 sshagent(['2b7b081c-83a5-4f2b-86e5-d60665c2ad5d']) {
