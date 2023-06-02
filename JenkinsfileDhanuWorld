@@ -51,11 +51,11 @@ sh "${mavenHome}/bin/mvn sonar:sonar"
 sh "${mavenHome}/bin/mvn deploy"
 }*/
 //Deply Application into TomcatServer
-stage('DeployApplicationIntoTomcatServer'){
+/*stage('DeployApplicationIntoTomcatServer'){
 sshagent(['2b7b081c-83a5-4f2b-86e5-d60665c2ad5d']) {
 sh "scp -o StrictHostKeyChecking=no target/maven-web-application.war ec2-user@65.2.40.56:/opt/apache-tomcat-9.0.74/webapps"    
 }
-}
+}*/
 }//Try Closing
  catch(e){
  currentBuild.result = "FAILED"
