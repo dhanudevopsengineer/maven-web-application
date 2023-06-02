@@ -10,7 +10,7 @@
 </head>
 <body>
 <h1 align="center">Welcome to Komala Technologies.Markapur,AndhraPradesh,India </h1>
-<h1 align="center"> Komala Technologies- Very Good Training Center for DevOps with AWS in Bangalore India and also for Job Assitance Job Support also...Teaching Real Time scnerios</h1>
+<h1 align="center"> KomalA Technologies- Very Good Training Center for DevOps with AWS in Bangalore India and also for Job Assitance Job Support also...Teaching Real Time scnerios</h1>
 <hr>
 <br>
 	<h1><h3> Server Side IP Address </h3><br>
